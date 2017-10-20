@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup as bs
 import requests as r
-import easygui as g
+
 
 
 """
@@ -16,7 +16,11 @@ def scrape():
 
     return output[0], output[1], output[2]
 
+def title():
+    return scrape()[0]
 
+def artist():
+    return scrape()[1]
 
-
-g.msgbox(scrape())
+def album():
+    return scrape()[2]
