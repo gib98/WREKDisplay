@@ -1,0 +1,3 @@
+Required python modules: Tkinter, BeautifulSoup4
+
+run ```python3 display.py```
