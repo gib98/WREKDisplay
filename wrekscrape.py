@@ -22,3 +22,28 @@ class Scraper():
             output[i] = j.text
 
         return output[0], output[1], output[2]
+
+    def schedule(self):
+        html = r.get('https://www.wrek.org/schedule/').text
+        soup = bs(html, 'html.parser')
+        sched = []
+        for t in soup.select(".schedule-list"):
+            sched.append(t.select(".schedule-entry"))
+        out= [[], [], [], [], [], [], []]
+        for i, c in enumerate(sched[:-1]):
+            for j in c:
+                type = ''
+                if 'schedule-specialty' in j['class']:
+                    type = 'Speciaty Show'
+                elif 'schedule-oto' in j['class']:
+                    type = 'Sports'
+                elif 'schedule-block' in j['class']:
+                    type = 'Block'
+                elif 'schedule-pubaff' in j['class']:
+                    type = 'Public Affairs'
+                else:
+                    type = '???'
+                out[i].append({'type':type,
+                               'time':str(j.select(".schedule-time")[0].string),
+                               'name':str(j.a.string)})
+        return out
