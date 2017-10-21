@@ -19,7 +19,7 @@ class Fullscreen_Window:
         self.titlev = StringVar()
         self.albumv = StringVar()
         self.img = Label(self.tk, image=self.logo, background='white').grid(row=0,column=0, rowspan=2)
-        self.info = Label(self.tk, text="© Gibran Essa, 2017; may not work during specialty shows" , font = font3,
+        self.info = Label(self.tk, text="© Gibran Essa, Jack Thomson 2017; may not work during specialty shows" , font = font3,
                           background='white').grid(row=0,column=1,sticky='nw')
         self.top = Label(self.tk, text=" Now Playing:" , font = font1, background='white').grid(row=1,column=1,columnspan=2,sticky='s')
         self.a = Label(self.tk, text=" Artist: ", font = font1, background='white').grid(row=2,column=1,sticky='w')
