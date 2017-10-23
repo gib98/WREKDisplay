@@ -5,14 +5,14 @@ class Scraper():
 
 
     def __init__(self):
-        self.title, self.artist, self.album  = self.scrape()
+        self.title, self.artist, self.album, self.show  = self.scrape()
 
     def update(self):
-        self.title, self.artist, self.album  = self.scrape()
+        self.title, self.artist, self.album, self.show  = self.scrape()
 
     """
     return eturns the current playing song as 3 strings.
-    format: Title, Artist, Album
+    format: Title, Artist, Album, Show
     """
     def scrape(self):
         html = r.get("https://www.wrek.org/playlist/").text
@@ -21,7 +21,9 @@ class Scraper():
         for i, j in enumerate(output):
             output[i] = j.text
 
-        return output[0], output[1], output[2]
+        output.append(self.specialtyscrape())
+        print(output)
+        return output[0], output[1], output[2], output[3]
 
     def schedule(self):
         html = r.get('https://www.wrek.org/schedule/').text
@@ -47,3 +49,9 @@ class Scraper():
                                'time':str(j.select(".schedule-time")[0].string),
                                'name':str(j.a.string)})
         return out
+
+    def specialtyscrape(self):
+    	html = r.get('https://www.wrek.org/').text
+    	soup = bs(html, 'html.parser')
+    	show = soup.find(id='current')
+    	return show.a.text
