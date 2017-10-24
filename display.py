@@ -81,7 +81,7 @@ class Fullscreen_Window:
         self.al.config(bg='white', fg='black')
         self.al1.config(bg='white', fg='black')
 
-        self.tk.after(int(1.8e6),self.clean)
+        self.tk.after(1800000,self.clean)
 
 
 
