@@ -23,7 +23,7 @@ class Fullscreen_Window:
 
         self.img = Label(self.tk, image=self.logo, background='white')
         self.img.grid(row=0,column=0, rowspan=2)
-        self.info = Label(self.tk, text="© Gibran Essa, Jack Thomson 2017; may not show correct songs during specialty shows" , font = font3,
+        self.info = Label(self.tk, text="Made by Gibran Essa, Jack Thomson 2017; may not show correct songs during specialty shows" , font = font3,
                           background='white')
         self.info.grid(row=0,column=1,sticky='nw')
         self.show = Label(self.tk, textvariable = self.specialtyshowv , font = font1, background='white')
@@ -64,7 +64,7 @@ class Fullscreen_Window:
         self.t1.config(fg='white', bg='black')
         self.al.config(fg='white', bg='black')
         self.al1.config(fg='white', bg='black')
-        self.tk.after(1000,self.clean2)
+        self.tk.after(1800000,self.clean2)
 
 
     def clean2(self):
@@ -81,7 +81,7 @@ class Fullscreen_Window:
         self.al.config(bg='white', fg='black')
         self.al1.config(bg='white', fg='black')
 
-        self.tk.after(1800000,self.clean)
+        self.tk.after(1000,self.clean)
 
 
 
