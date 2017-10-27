@@ -5,7 +5,7 @@ from wrekscrape import *
 from tkinter import *
 class Fullscreen_Window:
 
-    def __init__(self):
+    def __init__(self,flip = False ):
         self.tk = Tk()
  #       self.tk.attributes('-zoomed', True)
         self.frame = Frame(self.tk)
@@ -44,6 +44,11 @@ class Fullscreen_Window:
         self.al1.grid(row=5,column=2,sticky='w')
 
         self.s = Scraper()
+        self.wwait = 1800000
+        self.bwait = 1000
+        if flip:
+            self.bwait = 1800000
+            self.wwait = 1000
 
 
     def escape(self, event=None):
@@ -64,7 +69,7 @@ class Fullscreen_Window:
         self.t1.config(fg='white', bg='black')
         self.al.config(fg='white', bg='black')
         self.al1.config(fg='white', bg='black')
-        self.tk.after(1800000,self.clean2)
+        self.tk.after(self.bwait,self.clean2)
 
 
     def clean2(self):
@@ -81,7 +86,7 @@ class Fullscreen_Window:
         self.al.config(bg='white', fg='black')
         self.al1.config(bg='white', fg='black')
 
-        self.tk.after(1000,self.clean)
+        self.tk.after(self.wwait,self.clean)
 
 
 
@@ -115,8 +120,14 @@ font3 = ("Helvetica", "10")
 
 
 if __name__ == '__main__':
+    bw = False
+    if len(sys.argv) > 1:
+        print(sys.argv[1])
+        bw = sys.argv[1] == '-b'
+    print(bw)
 
-    w = Fullscreen_Window()
+
+    w = Fullscreen_Window(bw)
 
     w.toggle_fullscreen()
     w.pull()
