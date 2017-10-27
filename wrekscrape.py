@@ -22,7 +22,7 @@ class Scraper():
             output[i] = j.text
 
         output.append(self.specialtyscrape())
-        print(output)
+
         return output[0], output[1], output[2], output[3]
 
     def schedule(self):

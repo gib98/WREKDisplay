@@ -110,8 +110,8 @@ class Fullscreen_Window:
         self.titlev.set(self.s.title)
         self.albumv.set(self.s.album)
         self.specialtyshowv.set(self.s.show)
-        print(self.s.show)
-        print("update",self.s.artist,self.s.title,self.s.album, self.show)
+
+
         self.tk.after(5000,self.pull)
 
 font1 = ("Helvetica", "50","bold")
@@ -122,9 +122,9 @@ font3 = ("Helvetica", "10")
 if __name__ == '__main__':
     bw = False
     if len(sys.argv) > 1:
-        print(sys.argv[1])
+
         bw = sys.argv[1] == '-b'
-    print(bw)
+
 
 
     w = Fullscreen_Window(bw)
