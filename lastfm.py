@@ -33,9 +33,7 @@ class lastfm():
         self.secret = os.environ.get('LastSecret')
 
         if self.apiKey == '<YOUR API KEY>' or self.secret == '<YOUR SECRET>':
-            print('Please set your API key and secret (obtained from last.fm) in env.py')
-            sys.exit()
-
+            raise ApiKeyNotSetException()
 
     # returns string holding image url
     def getAlbumArt(self, artist, album):
@@ -112,3 +110,9 @@ def formatUnicode(text):
         return text
     else:
         return six.text_type(text)
+
+
+# exception
+class ApiKeyNotSetException(Exception):
+    print('Please set your API key and secret (obtained from last.fm) in env.py')
+    pass
