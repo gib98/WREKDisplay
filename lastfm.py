@@ -23,19 +23,19 @@ import requests
 import json
 import hashlib
 import six
+import logging
 
 class lastfm():
 
     # constructor
     def __init__(self):
 
+        self.logger = logging.getLogger(__name__)
         self.apiKey = os.environ.get('LastApiKey')
         self.secret = os.environ.get('LastSecret')
 
         if self.apiKey == '<YOUR API KEY>' or self.secret == '<YOUR SECRET>':
-            print('Please set your API key and secret (obtained from last.fm) in env.py')
-            sys.exit()
-
+            raise ApiKeyNotSetException()
 
     # returns string holding image url
     def getAlbumArt(self, artist, album):
@@ -51,12 +51,13 @@ class lastfm():
         response = requests.get('http://ws.audioscrobbler.com/2.0/?', payload)
 
         if response.status_code == 200:
-            # Success!
             response = response.json()
             image = response['album']['image'][2]['#text']
+            self.logger.debug('Image retrieved. URL: ' + str(image))
             return image
         else:
-            return 'failure'
+            self.logger.warn('Failed to get image. Response status code: ' + str(response.status_code))
+            return ''
 
     # returns a dict with some cool stuff
     def getArtistInfo(self, artist):
@@ -80,10 +81,14 @@ class lastfm():
             info['listeners'] = response['artist']['stats']['listeners']
             info['playcount'] = response['artist']['stats']['playcount']
             info['bio'] = response['artist']['bio']['summary']
+
+            self.logger.debug('Artist info retrieved')
+            self.logger.trace('Info dictionary: ' + str(info))
             
             return info
 
         else:
+            self.logger.warn('Failed to get artist image. Response status code: ' + str(response.status_code))
             return {'status':'failure'}
 
 
@@ -100,15 +105,24 @@ class lastfm():
 # helper functions
 
 def md5(text):
-    h = hashlib.md5(formatUnicode(text).encode("utf-8"))
+    h = hashlib.md5(formatUnicode(text).encode('utf-8'))
     return h.hexdigest()
 
 
 def formatUnicode(text):
 
     if isinstance(text, six.binary_type):
-        return six.text_type(text, "utf-8")
+        return six.text_type(text, 'utf-8')
     elif isinstance(text, six.text_type):
         return text
     else:
         return six.text_type(text)
+
+
+# exception
+class ApiKeyNotSetException(Exception):
+    
+    def __init__():
+        logging.getLogger(__name__).error('Please set your API key and secret (obtained from last.fm) in env.py')
+        
+    pass

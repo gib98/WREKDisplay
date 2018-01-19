@@ -1,7 +1,12 @@
 import sys
+import logging
 from PyQt5 import QtGui as qt
 
 def window():
+
+    logger = logging.getLogger(__name__)
+    logger.info('Starting WREKDisplay...')
+
     app = qt.QApplication(sys.argv)
     w = qt.QWidget()
     b = qt.QLabel(w)
@@ -14,4 +19,5 @@ def window():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename = 'logs/disp.log', level = logging.DEBUG)
     window()
